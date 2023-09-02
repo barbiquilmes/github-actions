@@ -11,4 +11,3 @@ def test_add_str():
 
 def test_add_int_str():
     assert add(1, "bar") == None
-

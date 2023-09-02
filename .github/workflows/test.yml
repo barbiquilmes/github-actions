@@ -1,5 +1,17 @@
 name: Test Project
-on: push
+on:
+  push:
+    branches:
+      - main
+      - new
+      - 'feature/**'
+    paths-ignore:
+      - '.github/workflows/*'
+  workflow_dispatch:
+  pull_request:
+    types:
+      - opened
+      - closed
 jobs:
     test:
         runs-on: ubuntu-latest
@@ -15,5 +27,12 @@ jobs:
               python -m pip install --upgrade pip
               pip install -r requirements.txt
           - name: Run tests
+            id: run-tests
             run: |
-              python -m pytest
+              python -m pytest > test.log
+          - name: Save Outcome if fails
+            if: failure() && steps.run-tests.outcome == 'failure'
+            uses: actions/upload-artifact@v3
+            with:
+              name: test-log
+              path: test.log

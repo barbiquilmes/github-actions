@@ -55,10 +55,39 @@ https://github.com/marketplace/actions/checkout
 
 checkout: Checks-out your repository under $GITHUB_WORKSPACE, so your workflow can access it.
 
+```commandline
+- name: Checkout
+  uses: actions/checkout@v2
+```
+upload-artifact: Uploads a file or directory as an artifact for the current workflow run.
+
+```commandline
+- name: Upload artifact
+  uses: actions/upload-artifact@v2
+  with:
+    name: my-artifact
+    path: path/to/artifact
+```
+
 ## Runners
 
 https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners
 
 Under Preinstalled software, to see what is already installed.
 
+## Context
+
+https://docs.github.com/en/actions/learn-github-actions/contexts
+
+Contexts are a set of key-value pairs that you can use to customize your workflow runs. The GitHub context contains information about the GitHub event, the workflow, and the repository where the workflow is run.
+
+They are access this way: 
+
+${{ <context> }}
+
+## Expressions
+
+Example  ${{toJSON(github)}}
+
+https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
 

@@ -2,7 +2,6 @@
 This is a module that contains a function that adds two numbers or two strings.
 """
 
-
 def add(first, second):
     """
     This function adds two numbers or two strings.

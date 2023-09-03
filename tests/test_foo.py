@@ -1,4 +1,4 @@
-from foo import add
+from src.foo import add
 
 
 def test_add_int():

@@ -1,10 +1,25 @@
 name: Run and Upload to S3
 on:
   push:
+    tags:
+      - 'v*'
     paths-ignore:
       - '.github/workflows/*'
   workflow_dispatch:
 jobs:
+    test:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Extract tag name
+          id: tag
+          run: echo ${{ toJson(github) }}
+          #uses: actions/github-script@0.2.0
+          #with:
+          #  github-token: ${{ secrets.GITHUB_TOKEN }}
+          #  script: |
+          #    return context.payload.ref.replace(/\/refs\/tags\//, '');
+        #- name: Echo
+        #  run: echo ${{ steps.tag.outputs.result }}
     build:
         runs-on: ubuntu-latest
         steps:

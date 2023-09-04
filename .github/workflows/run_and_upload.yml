@@ -21,7 +21,7 @@ jobs:
           - name: Run script
             id: run-foo-output
             run: |
-              python -m src/foo_output.py
+              python ./src/foo_output.py
           - name: Save data
             uses: actions/upload-artifact@v3
             with:

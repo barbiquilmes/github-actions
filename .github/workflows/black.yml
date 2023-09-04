@@ -3,6 +3,7 @@ on:
   push:
     paths-ignore:
       - '.github/workflows/*'
+      - '.github/actions/*'
 jobs:
   lint:
     runs-on: ubuntu-latest

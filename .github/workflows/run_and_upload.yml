@@ -2,7 +2,7 @@ name: Run and Upload to S3
 on:
   push:
     tags:
-      - 'v*'
+      - 'v**'
 jobs:
     tag:
       runs-on: ubuntu-latest

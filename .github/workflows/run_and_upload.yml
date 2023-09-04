@@ -14,10 +14,14 @@ jobs:
             uses: actions/setup-python@v4
             with:
               python-version: 3.10.12
+          - name: Output path
+            run: echo pwd
+          - name: Output contents
+            run: ls
           - name: Run script
             id: run-foo-output
             run: |
-              python -m ./src/foo_output.py
+              python -m src/foo_output.py
           - name: Save data
             uses: actions/upload-artifact@v3
             with:

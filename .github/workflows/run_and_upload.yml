@@ -1,4 +1,4 @@
-name: Test Project
+name: Run and Upload to S3
 on:
   push:
     paths-ignore:
@@ -17,7 +17,7 @@ jobs:
           - name: Run script
             id: run-foo-output
             run: |
-              python -m src/foo_output.py
+              python -m ./src/foo_output.py
           - name: Save data
             uses: actions/upload-artifact@v3
             with:

@@ -1,11 +1,5 @@
 name: Run and Upload to S3
-on:
-  push:
-    tags:
-      - 'v*'
-    paths-ignore:
-      - '.github/workflows/*'
-  workflow_dispatch:
+on: [push, workflow_dispatch]
 jobs:
     test:
       runs-on: ubuntu-latest

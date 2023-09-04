@@ -1,5 +1,19 @@
 # Github Actions
 
+This repo contains some common actions that can be used in a workflow.
+
+* linter (black.yml)
+* run pytest (test.yml)
+* a workflow with a costume action that uploads the output of a file to S3. (run_and_upload.yml)
+
+#### run_and_upload.yml
+This last one uses secrets for accessing the S3 necessary keys.
+It uses 2 different jobs, thus the output is stored and also available from the github interface.
+Is set for storing those files everytime a tag is generated, storing those files in a folder with the tag name.
+
+
+# Some Definitions on Github Actions
+
 __Continuous integration__ is all about integrating new code or code changes into an existing code base by building that code automatically.
 So that changed code by testing it automatically and by then merging it into existing code.
 

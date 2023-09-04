@@ -7,16 +7,14 @@ on:
 jobs:
     tag:
       runs-on: ubuntu-latest
+      outputs:
+        tag-version: ${{ steps.tag.outputs.tag-version }}
       steps:
         - name: Extract tag name
           id: tag
-          uses: actions/github-script@0.2.0
-          with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-            script: |
-              return context.payload.ref.replace(/\/refs\/tags\//, '');
-        - name: Echo
-          run: echo ${{ steps.tag.outputs.result }}
+          run: echo 'tag-version=${{  github.ref_name }}' >> $GITHUB_OUTPUT
+
+
     build:
         runs-on: ubuntu-latest
         steps:
@@ -61,5 +59,7 @@ jobs:
             with:
               bucket: my-github-actions
               data_folder: ./data
-              tag: ${{ needs.tag.outputs.result }}
+              tag: ${{ needs.tag.outputs.tag-version }}
               # bucket_region: us-east-2
+          - name: Output version
+            run: echo ${{ needs.tag.outputs.tag-version }}

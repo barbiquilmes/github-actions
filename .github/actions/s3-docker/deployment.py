@@ -11,6 +11,8 @@ def run():
     data_folder = os.environ["INPUT_DATA_FOLDER"]
     tag = os.environ["INPUT_TAG"]
 
+    tag_version = tag.split("/")[-1]
+
     configuration = Config(region_name=bucket_region)
 
     s3_client = boto3.client("s3", config=configuration)
@@ -21,7 +23,7 @@ def run():
             s3_client.upload_file(
                 os.path.join(root, file),
                 bucket,
-                os.path.join(tag, filename),
+                os.path.join(tag_version, filename),
                 ExtraArgs={"ContentType": mimetypes.guess_type(file)[0]},
             )
 

@@ -1,6 +1,10 @@
 name: Lint
 on:
   push:
+    branches:
+      - main
+      - new
+      - 'feature/**'
     paths-ignore:
       - '.github/workflows/*'
       - '.github/actions/*'

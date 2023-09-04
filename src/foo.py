@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+
 def add(first, second):
     """
     This function adds two numbers or two strings.

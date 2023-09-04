@@ -1,9 +1,6 @@
 """
 This is a module that contains a function that adds two numbers or two strings.
 """
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
 
 
 def add(first, second):

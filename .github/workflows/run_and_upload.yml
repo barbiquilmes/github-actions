@@ -2,7 +2,8 @@ name: Run and Upload to S3
 on:
   push:
     tags:
-      - 'v**'
+      - '**'
+      # The previous line will trigger the workflow when a tag is pushed to the repo,
 jobs:
     tag:
       runs-on: ubuntu-latest

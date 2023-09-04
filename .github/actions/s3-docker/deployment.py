@@ -5,6 +5,7 @@ from botocore.config import Config
 
 
 def run():
+    """Upload files to S3 bucket."""
     bucket = os.environ["INPUT_BUCKET"]
     bucket_region = os.environ["INPUT_BUCKET_REGION"]
     dist_folder = os.environ["INPUT_DIST_FOLDER"]

@@ -8,8 +8,8 @@ inputs:
     description: 'The region of the S3 bucket.'
     required: false
     default: 'us-east-1'
-  dist_folder:
-    description: 'The folder containing the deployable files.'
+  data_folder:
+    description: 'The folder containing the data files.'
     required: true
 runs:
   using: 'docker'

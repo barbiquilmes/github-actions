@@ -48,5 +48,5 @@ jobs:
               AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             with:
               bucket: my-github-actions
-              dist-folder: ./dist
-              # bucket-region: us-east-2
+              data_folder: ./data
+              # bucket_region: us-east-2

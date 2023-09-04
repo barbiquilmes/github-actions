@@ -8,18 +8,18 @@ def run():
     """Upload files to S3 bucket."""
     bucket = os.environ["INPUT_BUCKET"]
     bucket_region = os.environ["INPUT_BUCKET_REGION"]
-    dist_folder = os.environ["INPUT_DIST_FOLDER"]
+    data_folder = os.environ["INPUT_DATA_FOLDER"]
 
     configuration = Config(region_name=bucket_region)
 
     s3_client = boto3.client("s3", config=configuration)
 
-    for root, subdirs, files in os.walk(dist_folder):
+    for root, subdirs, files in os.walk(data_folder):
         for file in files:
             s3_client.upload_file(
                 os.path.join(root, file),
                 bucket,
-                os.path.join(root, file).replace(dist_folder + "/", ""),
+                os.path.join(root, file).replace(data_folder + "/", ""),
                 ExtraArgs={"ContentType": mimetypes.guess_type(file)[0]},
             )
 

@@ -9,6 +9,7 @@ def run():
     bucket = os.environ["INPUT_BUCKET"]
     bucket_region = os.environ["INPUT_BUCKET_REGION"]
     data_folder = os.environ["INPUT_DATA_FOLDER"]
+    tag = os.environ["INPUT_TAG"]
 
     configuration = Config(region_name=bucket_region)
 
@@ -16,10 +17,11 @@ def run():
 
     for root, subdirs, files in os.walk(data_folder):
         for file in files:
+            filename = os.path.join(root, file).replace(data_folder + "/", "")
             s3_client.upload_file(
                 os.path.join(root, file),
                 bucket,
-                os.path.join(root, file).replace(data_folder + "/", ""),
+                os.path.join(tag, filename),
                 ExtraArgs={"ContentType": mimetypes.guess_type(file)[0]},
             )
 

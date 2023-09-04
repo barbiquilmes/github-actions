@@ -1,19 +1,21 @@
 name: Run and Upload to S3
-on: [push, workflow_dispatch]
+on:
+  push:
+    tags:
+      - 'v*'
 jobs:
-    test:
+    tag:
       runs-on: ubuntu-latest
       steps:
         - name: Extract tag name
           id: tag
-          run: echo ${{ toJson(github) }}
-          #uses: actions/github-script@0.2.0
-          #with:
-          #  github-token: ${{ secrets.GITHUB_TOKEN }}
-          #  script: |
-          #    return context.payload.ref.replace(/\/refs\/tags\//, '');
-        #- name: Echo
-        #  run: echo ${{ steps.tag.outputs.result }}
+          uses: actions/github-script@0.2.0
+          with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            script: |
+              return context.payload.ref.replace(/\/refs\/tags\//, '');
+        - name: Echo
+          run: echo ${{ steps.tag.outputs.result }}
     build:
         runs-on: ubuntu-latest
         steps:
@@ -37,7 +39,7 @@ jobs:
               name: data-files
               path: data
     upload:
-        needs: build
+        needs: [build, tag]
         runs-on: ubuntu-latest
         steps:
           - name: Get code
@@ -58,4 +60,5 @@ jobs:
             with:
               bucket: my-github-actions
               data_folder: ./data
+              tag: ${{ needs.tag.outputs.result }}
               # bucket_region: us-east-2

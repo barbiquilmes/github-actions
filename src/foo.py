@@ -10,6 +10,7 @@ def add(first, second):
     This function adds two numbers or two strings.
     :type a: int or str
     :type b: int or str
+
     """
 
     if isinstance(first, int) and isinstance(second, int):

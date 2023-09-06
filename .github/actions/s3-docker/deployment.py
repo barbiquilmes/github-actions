@@ -28,6 +28,7 @@ def run():
                 filepath,
                 ExtraArgs={"ContentType": mimetypes.guess_type(file)[0]},
             )
+            filepaths.append(filepath)
 
     # The below code sets the 'website-url' output (the old ::set-output syntax isn't supported anymore - that's the only thing that changed though)
     with open(os.environ['GITHUB_OUTPUT'], 'a') as gh_output:

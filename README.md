@@ -4,7 +4,7 @@ This repo contains some common actions that can be used in a workflow.
 
 * linter (black.yml)
 * run pytest (test.yml)
-* a workflow with a costume action that uploads the output of a file to S3. (run_and_upload.yml)
+* a workflow with a costume action that uploads the output of a file to S3 under a folder that is construct with the name of the tag. (run_and_upload.yml)
 
 #### run_and_upload.yml
 This last one uses secrets for accessing the S3 necessary keys.

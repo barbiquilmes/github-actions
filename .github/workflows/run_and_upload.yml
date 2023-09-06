@@ -1,0 +1,67 @@
+name: Run and Upload to S3
+on:
+  push:
+    tags:
+      - '**'
+      # The previous line will trigger the workflow when a tag is pushed to the repo,
+jobs:
+    tag:
+      runs-on: ubuntu-latest
+      outputs:
+        tag-version: ${{ steps.tag.outputs.tag-version }}
+      steps:
+        - name: Extract tag name
+          id: tag
+          run: echo 'tag-version=${{  github.ref_name }}' >> $GITHUB_OUTPUT
+
+
+    build:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Get code
+            uses: actions/checkout@v3
+          - name: Set up Python 3.10
+            uses: actions/setup-python@v4
+            with:
+              python-version: 3.10.12
+          - name: Output path
+            run: echo pwd
+          - name: Output contents
+            run: ls
+          - name: Run script
+            id: run-foo-output
+            run: |
+              python ./src/foo_output.py
+          - name: Save data
+            uses: actions/upload-artifact@v3
+            with:
+              name: data-files
+              path: data
+    upload:
+        needs: [build, tag]
+        runs-on: ubuntu-latest
+        steps:
+          - name: Get code
+            uses: actions/checkout@v3
+          - name: Get build artifacts
+            uses: actions/download-artifact@v3
+            with:
+              name: data-files
+              path: ./data
+          - name: Output contents
+            run: ls
+          - name: Upload s3
+            id: upload-s3
+            uses: ./.github/actions/s3-docker
+            env:
+              AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+              AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            with:
+              bucket: my-github-actions
+              data_folder: ./data
+              tag: ${{ needs.tag.outputs.tag-version }}
+              # bucket_region: us-east-2
+          - name: Output version
+            run: echo ${{ needs.tag.outputs.tag-version }}
+          - name: Output filepaths
+            run: echo ${{ steps.upload-s3.outputs.s3-filepaths }}

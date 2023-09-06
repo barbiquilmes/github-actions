@@ -14,6 +14,9 @@ inputs:
   tag:
     description: 'The tag name.'
     required: true
+outputs:
+  s3-filepaths:
+    description: 'All the filepaths were something was stored in s3.'
 runs:
   using: 'docker'
   image: 'Dockerfile'

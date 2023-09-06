@@ -63,3 +63,5 @@ jobs:
               # bucket_region: us-east-2
           - name: Output version
             run: echo ${{ needs.tag.outputs.tag-version }}
+          - name: Output filepaths
+            run: echo ${{ steps.upload-s3.outputs.s3-filepaths }}
